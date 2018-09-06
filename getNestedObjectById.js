@@ -51,14 +51,16 @@ const root = {
 
 const id = 'id_17';
 
+// not efficient at all
 const getNestedObjectById = ( array, id ) =>
-    array.reduce((object, item) => {
-        return item.id === id ? 
-            item : 
-            !!item.children ? 
-                getNestedObjectById( item.children, id ) :
-                object;
-    },{});
+   array.reduce((object, item) => {
+         return Object.keys(object).length > 0 ?
+           object :
+           (item.id === id ?
+             item :
+             (typeof item.children !== "undefined" ?
+                 getNestedObjectById( item.children, id ) :
+                 object));
+     },{});
 
-const obj = getNestedObjectById(root.objects, id);
 console.log(obj);

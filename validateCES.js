@@ -14,8 +14,9 @@ const validateCES = (req)  => {
   const claim = { ivu: 'A700033' }; // bbvaNet.getClaim(req);
   const targetEndpoint = "/v2/ticker/"; //req.url
 
-  if ( !Object.keys(endPoints2Users).includes(targetEndpoint) ) return false; //daca nu exista endpoint-ul respectiv no point in checking further.
-  return endPoints2Users[targetEndpoint].filter(ivu => ivu === claim.ivu).length > 0;
+  return Object.keys(endPoints2Users).includes(targetEndpoint) ? 
+    endPoints2Users[targetEndpoint].filter(ivu => ivu === claim.ivu).length > 0 : 
+    false;
 };
 
 const x = validateCES();

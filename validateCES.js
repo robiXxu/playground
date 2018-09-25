@@ -1,23 +1,46 @@
-
-//astea presupun ca is pe global scope sau vin de undeva.. 
 const endPoints2Users = {
-  '/deployment/14/revision/save': ['A700048'],
-  '/v2/ticker/': [
+  '/deployment/{deploymentPlanId}/revision/{configurationRevisionId}/rollback': ['A700048'],
+  '/deployment/{deploymentPlanId}/revision/{configurationRevisionId}/update': [
     'A700033',
     'A700048',
   ],
-  '/product/14/deployment/16/revision/getAll': ['A700052'],
-  '/deployment/15/revision/delete': ['A700541']
+  '/deployment/{deploymentPlanId}/revision/{configurationRevisionId}': ['A700052'],
+  '/deployment/{deploymentPlanId}/revision/{configurationRevisionId}/service/{serviceId}': ['A700541']
 };
 
-const validateCES = (req)  => {
+const clean = s => s.length > 0
+const endPoints2UsersKeys = Object.keys(endPoints2Users).map(k => k.split('/').filter(clean));
+const partTypes = {
+  "{deploymentPlanId}": "number",
+  "{configurationRevisionId}": "number",
+  "{serviceId}": "number"
+};
+
+;
+
+// const validateCES = (req)  => {
   const claim = { ivu: 'A700033' }; // bbvaNet.getClaim(req);
-  const targetEndpoint = "/v2/ticker/"; //req.url
+  const targetEndpoint = "/deployment/45/revision/26/rollback"; //req.url
+  const target = targetEndpoint.split('/').filter(clean).map(s => {
+    const val = parseInt(s);
+    return isNaN(s) ? s : val;
+  });
 
-  return Object.keys(endPoints2Users).includes(targetEndpoint) ? 
-    endPoints2Users[targetEndpoint].filter(ivu => ivu === claim.ivu).length > 0 : 
-    false;
-};
+  const x = endPoints2UsersKeys.map((array) => {
+    const targetCopy = JSON.parse(JSON.stringify(target));
+    return array.reduce((path, current) => {
+      // const item = path[0];
+      // if(current.includes('{') && partTypes[current] === typeof(item)){
+      //   path.splice(0,1);
+      // } else if(current === item){
+      //   path.splice(0,1);
+      // }
+      // return path;
+    },targetCopy);
+  });
+  x
 
-const x = validateCES();
-x //?
+//   return Object.keys(endPoints2Users).includes(targetEndpoint) ? 
+//     endPoints2Users[targetEndpoint].filter(ivu => ivu === claim.ivu).length > 0 : 
+//     false;
+// };

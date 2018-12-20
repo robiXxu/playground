@@ -1,0 +1,24 @@
+{
+  "name": "playground",
+  "version": "1.0.0",
+  "description": "## Welcome to my playground",
+  "main": "changeOrderCountry.js",
+  "dependencies": {
+    "jsonwebtoken": "^8.4.0",
+    "jws": "^3.1.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robiXxu/playground.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/robiXxu/playground/issues"
+  },
+  "homepage": "https://github.com/robiXxu/playground#readme"
+}

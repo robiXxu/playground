@@ -47,18 +47,18 @@ const compareAndExtract1 = (original, updated) =>
 const createJsonPatch = (o, op = 'replace', prefix = '') => 
   Object
     .entries(o)
-    .reduce((acc, [key, v]) =>
-      acc = [
-        ...acc,
-          typeof v === 'object'
-            ? createJsonPatch(o[key], op, `${prefix}/${key}`)
-            : {
-              op,
-              path: `${prefix}/${key}`,
-              value: v
-            }
-     ,
-      ],
+    .reduce((acc, [key, v]) => {
+      acc = [...acc]
+        const nv = typeof v === 'object'
+          ? createJsonPatch(o[key], op, `${prefix}/${key}`)
+          : {
+            op,
+            path: `${prefix}/${key}`,
+            value: v
+          }
+        Array.isArray(nv) ? acc = acc.concat(...nv) : acc.push(nv)
+        return acc
+      },
       [],
     )
 

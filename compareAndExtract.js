@@ -44,9 +44,27 @@ const compareAndExtract1 = (original, updated) =>
     )
 
 
+const createJsonPatch = (o, prefix = '') => 
+  Object
+    .entries(o)
+    .reduce((acc, [key, v]) =>
+      acc = [
+        ...acc,
+          typeof v === 'object'
+            ? createJsonPatch(o[key], `${prefix}/${key}`)
+            : {
+              op: 'replace',
+              path: `${prefix}/${key}`,
+              value: v
+            }
+     ,
+      ],
+      [],
+    )
 
 
+const diff = compareAndExtract1(json1,json2) 
+console.log('diff',diff)
 
-
-
-console.log(compareAndExtract1(json1,json2))
+const jsonPatch = createJsonPatch(diff)
+console.log('jsonPatch', JSON.stringify(jsonPatch, null, 2))

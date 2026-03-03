@@ -1,15 +1,7 @@
-const dostuff = (cb) => {
-  console.log('here??');
-  //some async stuff...
-  setTimeout(() => {
-    console.log('here 2')
-    console.log(typeof cb);
-    if(cb) cb(null);
-  },3000);
-};
-
-const x = (cb) => {
-  dostuff(cb(true));
+const x = {
+  name1: 'value1',
+  name2: 'value2'
 }
 
-x(d => { console.log(d) });
+for(parameter in Object.keys(options[option])) {
+}
